@@ -13,16 +13,13 @@
   }:
     flake-utils.lib.eachDefaultSystem (system: let
       pkgs = import nixpkgs {inherit system;};
-      nodePackages = pkgs.nodePackages;
     in {
       devShells.default = pkgs.mkShell {
         buildInputs = [
           pkgs.bun
           pkgs.go
           pkgs.git
-          nodePackages.prettier
-          nodePackages.prettierd
-          pkgs.gofmt
+          pkgs.prettierd
         ];
 
         shellHook = ''
