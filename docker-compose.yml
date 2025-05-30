@@ -1,22 +1,28 @@
-version: '3.8'
-
 services:
   backend:
     build:
       context: .
       dockerfile: backend/Dockerfile
     ports:
-      - "8080:8080"
+      - "3001:3001"
     environment:
-      - ENV=development
+      - PORT=3001
+    networks:
+      - fpl-network
 
   frontend:
     build:
       context: .
       dockerfile: frontend/Dockerfile
     ports:
-      - "3000:3000"
+      - "5173:5173"
     depends_on:
       - backend
     environment:
-      - VITE_API_URL=http://backend:8080
+      - VITE_API_URL=http://backend:3001
+    networks:
+      - fpl-network
+
+networks:
+  fpl-network:
+    driver: bridge
