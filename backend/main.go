@@ -1,5 +1,7 @@
 package main
 
+// No documentation? It cant go on like this, can it?
+
 import (
 	"encoding/json"
 	"fmt"
@@ -58,7 +60,9 @@ func getFPLData(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Failed to fetch FPL data", http.StatusInternalServerError)
 		return
 	}
-	defer resp.Body.Close()
+
+	// Use closeOrLog helper to close response body
+	defer closeOrLog(resp.Body, "HTTP response body")
 
 	if resp.StatusCode != http.StatusOK {
 		http.Error(w, "FPL API returned error", resp.StatusCode)
@@ -73,7 +77,10 @@ func getFPLData(w http.ResponseWriter, r *http.Request) {
 
 	// Set content type and return the FPL data
 	w.Header().Set("Content-Type", "application/json")
-	w.Write(body)
+
+	// Use writeOrLog helper to write response
+	writeOrLog(w, body, "FPL API response body")
+
 }
 
 func main() {
