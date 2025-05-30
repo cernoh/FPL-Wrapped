@@ -5,6 +5,29 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [playerData, setPlayerData] = useState(null)
+  const [playerId, setPlayerId] = useState('')
+
+  const fetchPlayerData = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/api/fpl', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ player_id: playerId }),
+      })
+      
+      if (response.ok) {
+        const data = await response.json()
+        setPlayerData(data)
+      } else {
+        console.error('Failed to fetch player data')
+      }
+    } catch (error) {
+      console.error('Error:', error)
+    }
+  }
 
   return (
     <>
@@ -16,11 +39,23 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      <h1>FPL Wrapped</h1>
       <div className="card">
+        <input 
+          type="text" 
+          value={playerId} 
+          onChange={(e) => setPlayerId(e.target.value)}
+          placeholder="Enter Player ID"
+        />
+        <button onClick={fetchPlayerData}>
+          Get Player Data
+        </button>
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
+        {playerData && (
+          <pre>{JSON.stringify(playerData, null, 2)}</pre>
+        )}
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
