@@ -20,6 +20,7 @@ services:
       - backend
     environment:
       - VITE_API_URL=http://backend:3001
+      - VITE_HOST=0.0.0.0
     networks:
       - fpl-network
 
