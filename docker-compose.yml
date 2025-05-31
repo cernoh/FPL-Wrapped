@@ -4,9 +4,9 @@ services:
       context: .
       dockerfile: backend/Dockerfile
     ports:
-      - "3001:3001"
+      - "3080:3080"
     environment:
-      - PORT=3001
+      - PORT=3080
     networks:
       - fpl-network
 
@@ -19,7 +19,7 @@ services:
     depends_on:
       - backend
     environment:
-      - VITE_API_URL=http://backend:3001
+      - VITE_API_URL=http://backend:3080
       - VITE_HOST=0.0.0.0
     networks:
       - fpl-network

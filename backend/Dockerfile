@@ -27,7 +27,7 @@ WORKDIR /root/
 COPY --from=builder /app/main .
 
 # Expose port (adjust if your Go app uses a different port)
-EXPOSE 8080
+EXPOSE 3080
 
 # Run the binary
 CMD ["./main"]
