@@ -10,7 +10,7 @@ function App() {
 
   const fetchPlayerData = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/fpl', {
+      const response = await fetch('http://localhost:3080/api/fpl', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
