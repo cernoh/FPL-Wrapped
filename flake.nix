@@ -23,7 +23,8 @@
         ];
 
         shellHook = ''
-          echo "Nix shell initialised! "
+          export COMPOSE_BAKE=true
+            echo "Nix shell initialised! "
         '';
       };
     });
